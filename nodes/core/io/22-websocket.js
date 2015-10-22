@@ -48,7 +48,7 @@ module.exports = function(RED) {
                 if (!node.isServer) { node.emit('opened',''); }
             });
             socket.on('close',function() {
-                if (node.isServer) { delete node._clients[id]; node.emit('opened',Object.keys(node._clients).length); }
+                if (node.isServer) { delete node._clients[id]; node.emit('closed',Object.keys(node._clients).length); }
                 else { node.emit('closed'); }
                 if (!node.closing && !node.isServer) {
                     node.tout = setTimeout(function(){ startconn(); }, 3000); // try to reconnect every 3 secs... bit fast ?
